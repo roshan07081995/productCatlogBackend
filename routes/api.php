@@ -18,11 +18,11 @@ use App\Http\Controllers\AuthController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('students', [ApiController::class, 'getAllStudents']);
-Route::get('students/{id}', [ApiController::class, 'getStudent']);
-Route::post('students', [ApiController::class, 'createStudent']);
-Route::put('students/{id}', [ApiController::class, 'updateStudent']);
-Route::delete('students/{id}', [ApiController::class, 'deleteStudent']);
+Route::get('products', [ApiController::class, 'getAllProducts']);
+Route::get('products/{id}', [ApiController::class, 'getProduct']);
+Route::post('products', [ApiController::class, 'createProduct']);
+Route::put('products/{id}', [ApiController::class, 'updateProduct']);
+Route::delete('products/{id}', [ApiController::class, 'deleteProduct']);
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);

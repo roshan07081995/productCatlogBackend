@@ -10,20 +10,29 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+		
       $user = User::create([
-        'name' => $request->name,
+        'username' => $request->username,
         'email' => $request->email,
         'password' => bcrypt($request->password),
+        'confirmpassword' => bcrypt($request->confirmpassword),
       ]);
 
-      $token = auth()->login($user);
-
-      return $this->respondWithToken($token);
+      if($request->password != $request->confirmpassword)
+      {
+        return response()->json(['error' => 'Two passwords should be same'], 401);
+      }
+      else
+      {
+        $token = auth()->login($user);
+        return $this->respondWithToken($token);
+      }
+      
     }
 
     public function login(Request $request)
     {
-      $credentials = $request->only(['email', 'password']);
+      $credentials = $request->only(['username', 'password']);
 
       if (!$token = auth()->attempt($credentials)) {
         return response()->json(['error' => 'Unauthorized'], 401);
